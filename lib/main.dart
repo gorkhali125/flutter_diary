@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import "package:flutter_diary/form/add_text_note.dart";
+
 void main() {
   runApp(MyApp());
 }
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         MyApp.routeName: (context) => MyApp(),
+        AddTextNote.routeName: (context) => AddTextNote(),
       },
     );
   }
@@ -74,6 +77,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 child: new Icon(icons[index], color: foregroundColor),
                 onPressed: () {
                   _controller.reverse();
+                  String routeName = (index == 0)
+                      ? AddTextNote.routeName
+                      : (index == 1
+                          ? AddTextNote.routeName
+                          : AddTextNote.routeName);
+                  Navigator.of(context).pushNamed(routeName);
                 },
               ),
             ),

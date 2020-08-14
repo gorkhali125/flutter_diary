@@ -6,6 +6,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static const routeName = 'home';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,6 +16,10 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        MyApp.routeName: (context) => MyApp(),
+      },
     );
   }
 }
@@ -67,9 +73,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 mini: true,
                 child: new Icon(icons[index], color: foregroundColor),
                 onPressed: () {
-                  String snackText = (index == 0) ? 'Add Video Note' : (index == 1 ? 'Add Image Note' : 'Add Text Note');
-                  final snackBar = SnackBar(content: Text(snackText));
-                  globalKey.currentState.showSnackBar(snackBar);
+                  _controller.reverse();
                 },
               ),
             ),

@@ -38,5 +38,9 @@ class DBHelper {
     return diaryDB;
   }
 
-  void _createDB(Database db, int version) async {}
+  void _createDB(Database db, int version) async {
+    await db.execute(
+        'CREATE TABLE $table($id INTEGER PRIMARY KEY AUTOINCREMENT '
+        ', $title VARCHAR(255) NOT NULL, $description TEXT, $type VARCHAR(10) NOT NULL, $date TEXT)');
+  }
 }

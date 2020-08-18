@@ -3,6 +3,8 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter_diary/model/note.dart';
+
 class DBHelper {
   static DBHelper _dbHelper;
   static Database _db;
@@ -30,6 +32,7 @@ class DBHelper {
     return _db;
   }
 
+  //Initialize
   Future<Database> initDB() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path + 'diaries.db';
@@ -38,9 +41,17 @@ class DBHelper {
     return diaryDB;
   }
 
+  //Create DB
   void _createDB(Database db, int version) async {
     await db.execute(
         'CREATE TABLE $table($id INTEGER PRIMARY KEY AUTOINCREMENT '
         ', $title VARCHAR(255) NOT NULL, $description TEXT, $type VARCHAR(10) NOT NULL, $date TEXT)');
+  }
+
+  //Insert operation
+  Future<int> addNote(Note note) async {
+    Database db = await this.database;
+    var result = db.insert(table,note.toMap());
+    return result;
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_diary/main.dart';
+import 'package:flutter_diary/model/note.dart';
+import 'package:flutter_diary/db/db_helper.dart';
 
 class AddTextNote extends StatefulWidget {
   static const routeName = 'add-text-note';
@@ -12,6 +14,7 @@ class AddTextNote extends StatefulWidget {
 
 class _AddTextNoteState extends State<AddTextNote> {
   final _addTextNoteFormKey = GlobalKey<FormState>();
+  Note note;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +48,15 @@ class _AddTextNoteState extends State<AddTextNote> {
                           decoration: InputDecoration(
                             hintText: 'What do you want to write about?',
                           ),
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'You might want to add some text nigga!!';
+                            }
+                            return null;
+                          },
+                          onChanged: (String value){
+                            note.title = value;
+                          },
                         ),
                       ),
                       TextFormField(
@@ -62,7 +74,11 @@ class _AddTextNoteState extends State<AddTextNote> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _handleAddTextNote();
+          setState(() {
+            if(_addTextNoteFormKey.currentState.validate()){
+              this._handleAddTextNote();
+            }
+          });
         },
         child: Icon(
           Icons.check,

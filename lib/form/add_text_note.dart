@@ -55,7 +55,9 @@ class _AddTextNoteState extends State<AddTextNote> {
                             return null;
                           },
                           onChanged: (String value){
-                            note.title = value;
+                            setState(() {
+                              note.title = value;
+                            });
                           },
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import "package:flutter_diary/view/note_list.dart";
 import "package:flutter_diary/form/add_text_note.dart";
 
 void main() {
@@ -54,9 +55,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     Color backgroundColor = Theme.of(context).cardColor;
     Color foregroundColor = Theme.of(context).accentColor;
+
     return new Scaffold(
       key: globalKey,
       appBar: new AppBar(title: new Text('Notes Collection')),
+      body: NoteList(),
       floatingActionButton: new Column(
         mainAxisSize: MainAxisSize.min,
         children: new List.generate(icons.length, (int index) {

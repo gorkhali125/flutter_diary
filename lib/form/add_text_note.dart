@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:flutter_diary/main.dart';
 import 'package:flutter_diary/model/note.dart';
@@ -14,9 +15,18 @@ class AddTextNote extends StatefulWidget {
 
 class _AddTextNoteState extends State<AddTextNote> {
   final _addTextNoteFormKey = GlobalKey<FormState>();
-  Note note;
+  Note note = Note('', '', '');
+  DBHelper dbHelper = DBHelper();
+
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +67,7 @@ class _AddTextNoteState extends State<AddTextNote> {
                             }
                             return null;
                           },
-                          onChanged: (String value) {
+                          onSaved: (String value) {
                             note.title = titleController.text;
                           },
                         ),
@@ -67,7 +77,7 @@ class _AddTextNoteState extends State<AddTextNote> {
                         maxLines: null,
                         decoration: InputDecoration(hintText: 'Tell me more.'),
                         controller: descriptionController,
-                        onChanged: (String value) {
+                        onSaved: (String value) {
                           note.description = descriptionController.text;
                         },
                       ),
@@ -83,7 +93,7 @@ class _AddTextNoteState extends State<AddTextNote> {
         onPressed: () {
           setState(() {
             if (_addTextNoteFormKey.currentState.validate()) {
-              this._saveTextNote();
+              _saveTextNote();
             }
           });
         },
@@ -95,7 +105,30 @@ class _AddTextNoteState extends State<AddTextNote> {
     );
   }
 
-  _saveTextNote() {
+  void _saveTextNote() async {
     Navigator.of(context).pushNamed(MyApp.routeName);
+    note.date = DateFormat.yMMMd().format(DateTime.now());
+    note.type = "text";
+    int saved = await dbHelper.addNote(note);
+
+    if (saved != 0) {
+      _showAlertDialog('Success', 'Your note is saved successfully!!');
+    } else {
+      _showAlertDialog('Error', 'An error occurred while saving note.');
+    }
+  }
+
+  void _showAlertDialog(String title, String message) {
+    AlertDialog alertDialog = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        new FlatButton(
+          child: const Text("Close"),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
+    );
+    showDialog(context: context, builder: (_) => alertDialog);
   }
 }

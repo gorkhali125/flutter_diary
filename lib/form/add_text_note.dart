@@ -15,6 +15,8 @@ class AddTextNote extends StatefulWidget {
 class _AddTextNoteState extends State<AddTextNote> {
   final _addTextNoteFormKey = GlobalKey<FormState>();
   Note note;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +44,21 @@ class _AddTextNoteState extends State<AddTextNote> {
                         child: TextFormField(
                           keyboardType: TextInputType.multiline,
                           minLines: 1,
-                          maxLines: 2,
+                          maxLines: 3,
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
                             hintText: 'What do you want to write about?',
                           ),
+                          controller: titleController,
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'You might want to add some text nigga!!';
+                              return 'You might want to write something.';
                             }
                             return null;
                           },
-                          onChanged: (String value){
-                            setState(() {
-                              note.title = value;
-                            });
+                          onChanged: (String value) {
+                            note.title = titleController.text;
                           },
                         ),
                       ),
@@ -65,6 +66,10 @@ class _AddTextNoteState extends State<AddTextNote> {
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(hintText: 'Tell me more.'),
+                        controller: descriptionController,
+                        onChanged: (String value) {
+                          note.description = descriptionController.text;
+                        },
                       ),
                     ],
                   ),
@@ -77,8 +82,8 @@ class _AddTextNoteState extends State<AddTextNote> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            if(_addTextNoteFormKey.currentState.validate()){
-              this._handleAddTextNote();
+            if (_addTextNoteFormKey.currentState.validate()) {
+              this._saveTextNote();
             }
           });
         },
@@ -90,7 +95,7 @@ class _AddTextNoteState extends State<AddTextNote> {
     );
   }
 
-  _handleAddTextNote() {
+  _saveTextNote() {
     Navigator.of(context).pushNamed(MyApp.routeName);
   }
 }

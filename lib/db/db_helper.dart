@@ -56,10 +56,10 @@ class DBHelper {
   }
 
   //Get all Note with specified type.
-  Future<List<Note>> getAllNote(String type) async {
+  Future<List<Note>> getAllNote(String typ) async {
     Database db = await this.database;
     var dbNoteList = await db.query(table,
-        orderBy: '$date ASC', where: '$type = ?', whereArgs: [type]);
+        orderBy: '$date DESC', where: '$type = ?', whereArgs: [typ]);
     int count = dbNoteList.length;
     List<Note> noteList = List<Note>();
     for (int i = 0; i < count; i++) {

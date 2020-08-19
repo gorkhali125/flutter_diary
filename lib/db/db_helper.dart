@@ -67,4 +67,16 @@ class DBHelper {
     }
     return noteList;
   }
+
+  //Delete all Note with specified type.
+  Future<int> deleteAllNote(String typ) async {
+    Database db = await this.database;
+    return await db.delete(table, where: '$type = ?', whereArgs: [typ]);
+  }
+
+  //Delete a single note with specified id
+  Future<int> deleteNote(int nid) async {
+    Database db = await this.database;
+    return await db.delete(table, where: '$id = ?', whereArgs: [nid]);
+  }
 }

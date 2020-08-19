@@ -51,7 +51,20 @@ class DBHelper {
   //Insert operation
   Future<int> addNote(Note note) async {
     Database db = await this.database;
-    var result = db.insert(table,note.toMap());
+    var result = db.insert(table, note.toMap());
     return result;
+  }
+
+  //Get all Note with specified type.
+  Future<List<Note>> getAllNote(String type) async {
+    Database db = await this.database;
+    var dbNoteList = await db.query(table,
+        orderBy: '$date ASC', where: '$type = ?', whereArgs: [type]);
+    int count = dbNoteList.length;
+    List<Note> noteList = List<Note>();
+    for (int i = 0; i < count; i++) {
+      noteList.add(Note.fromMapObject(dbNoteList[i]));
+    }
+    return noteList;
   }
 }

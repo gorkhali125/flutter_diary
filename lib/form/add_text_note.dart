@@ -15,7 +15,7 @@ class AddTextNote extends StatefulWidget {
 
 class _AddTextNoteState extends State<AddTextNote> {
   final _addTextNoteFormKey = GlobalKey<FormState>();
-  Note note = Note('', DateFormat.yMMMd().format(DateTime.now()), 'text');
+  Note note = Note('', DateFormat.yMMMd().add_jms().format(DateTime.now()), 'text');
   DBHelper dbHelper = DBHelper();
 
   TextEditingController titleController = TextEditingController();

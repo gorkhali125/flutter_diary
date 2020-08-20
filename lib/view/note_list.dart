@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -21,16 +19,7 @@ class NoteListState extends State<NoteList> {
   Widget build(BuildContext context) {
     if (noteList == null) {
       noteList = List<Note>();
-      final Future<Database> dbFuture = dbHelper.initDB();
-      dbFuture.then((database) {
-        Future<List<Note>> noteListFuture = dbHelper.getAllNote('text');
-        noteListFuture.then((noteList) {
-          setState(() {
-            this.noteList = noteList;
-            this.count = noteList.length;
-          });
-        });
-      });
+      refreshNoteList();
     }
 
     final List<int> colorCodes = <int>[300, 200];
@@ -50,5 +39,18 @@ class NoteListState extends State<NoteList> {
       separatorBuilder: (BuildContext context, int index) =>
           const Divider(color: Colors.white),
     );
+  }
+
+  void refreshNoteList() {
+    final Future<Database> dbFuture = dbHelper.initDB();
+    dbFuture.then((database) {
+      Future<List<Note>> noteListFuture = dbHelper.getAllNote('text');
+      noteListFuture.then((noteList) {
+        setState(() {
+          this.noteList = noteList;
+          this.count = noteList.length;
+        });
+      });
+    });
   }
 }

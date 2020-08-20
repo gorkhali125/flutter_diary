@@ -45,31 +45,23 @@ class NoteListState extends State<NoteList> {
               trailing: Wrap(
                 spacing: 10,
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.blue,
-                        ),
-                        onTap: () {
-                          print("edit tapped");
-                        },
-                      ),
-                    ],
+                  GestureDetector(
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.blue,
+                    ),
+                    onTap: () {
+                      print("edit tapped");
+                    },
                   ),
-                  Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                        onTap: () {
-                          showDeleteDialog();
-                        },
-                      ),
-                    ],
+                  GestureDetector(
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onTap: () {
+                      showDeleteDialog();
+                    },
                   )
                 ],
               ),

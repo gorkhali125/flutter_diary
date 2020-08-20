@@ -66,7 +66,7 @@ class NoteListState extends State<NoteList> {
                           color: Colors.red,
                         ),
                         onTap: () {
-                          print("delete tapped");
+                          showDeleteDialog();
                         },
                       ),
                     ],
@@ -80,6 +80,38 @@ class NoteListState extends State<NoteList> {
             //...
           );
         });
+  }
+
+  void showDeleteDialog() {
+// set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Yes"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Delete Note"),
+      content: Text("Are you sure you want to delete this note?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   void refreshNoteList() {

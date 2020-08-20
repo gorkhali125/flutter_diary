@@ -22,23 +22,64 @@ class NoteListState extends State<NoteList> {
       refreshNoteList();
     }
 
-    final List<int> colorCodes = <int>[300, 200];
-    final double listHeight = 80;
+    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
 
-    return ListView.separated(
-      padding: const EdgeInsets.all(8),
-      itemCount: this.count,
-      itemBuilder: (BuildContext context, int index) {
-//        print(jsonEncode(this.noteList[index].toMap()));
-        return Container(
-          height: listHeight,
-          color: Colors.grey[(index % 2 == 0) ? colorCodes[0] : colorCodes[1]],
-          child: Center(child: Text(this.noteList[index].title)),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) =>
-          const Divider(color: Colors.white),
-    );
+    return ListView.builder(
+        itemCount: count,
+        itemBuilder: (BuildContext context, position) {
+          return Card(
+            key: ObjectKey(noteList[position].id),
+            color: Colors.white,
+            elevation: 5.0,
+            child: ListTile(
+              leading: Icon((this.noteList[position].type == 'text')
+                  ? Icons.sms
+                  : (this.noteList[position].type == 'image'
+                      ? Icons.image
+                      : Icons.videocam)),
+              title: Text(
+                this.noteList[position].title,
+                style: titleStyle,
+              ),
+              subtitle: Text(this.noteList[position].date),
+              trailing: Wrap(
+                spacing: 10,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.blue,
+                        ),
+                        onTap: () {
+                          print("edit tapped");
+                        },
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onTap: () {
+                          print("delete tapped");
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              onTap: () {
+                print("tapped on card");
+              },
+            ),
+            //...
+          );
+        });
   }
 
   void refreshNoteList() {

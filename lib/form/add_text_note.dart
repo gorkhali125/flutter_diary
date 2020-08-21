@@ -15,7 +15,8 @@ class AddTextNote extends StatefulWidget {
 
 class _AddTextNoteState extends State<AddTextNote> {
   final _addTextNoteFormKey = GlobalKey<FormState>();
-  Note note = Note('', DateFormat.yMMMd().add_jms().format(DateTime.now()), 'text');
+  Note note =
+      Note('', DateFormat.yMMMd().add_jms().format(DateTime.now()), 'text');
   DBHelper dbHelper = DBHelper();
 
   TextEditingController titleController = TextEditingController();
@@ -78,7 +79,10 @@ class _AddTextNoteState extends State<AddTextNote> {
                         decoration: InputDecoration(hintText: 'Tell me more.'),
                         controller: descriptionController,
                         onChanged: (String value) {
-                          note.description = descriptionController.text.trim();
+                          note.description =
+                              descriptionController.text.trim().isNotEmpty
+                                  ? descriptionController.text.trim()
+                                  : 'N/A';
                         },
                       ),
                     ],
@@ -106,6 +110,7 @@ class _AddTextNoteState extends State<AddTextNote> {
   }
 
   void _saveTextNote() async {
+    note.description = note.description ?? 'N/A';
     Navigator.of(context).pushNamed(MyApp.routeName);
     int saved = await dbHelper.addNote(note);
 

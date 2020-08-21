@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'package:flutter_diary/model/note.dart';
 import 'package:flutter_diary/db/db_helper.dart';
+import 'package:flutter_diary/view/note_detail.dart';
 
 class NoteList extends StatefulWidget {
   NoteList({Key key}) : super(key: key);
@@ -66,7 +67,9 @@ class NoteListState extends State<NoteList> {
                 ],
               ),
               onTap: () {
-                print("tapped on card");
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return NoteDetail(this.noteList[position]);
+                }));
               },
             ),
             //...

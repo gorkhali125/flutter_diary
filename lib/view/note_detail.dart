@@ -4,7 +4,7 @@ import 'package:flutter_diary/model/note.dart';
 class NoteDetail extends StatelessWidget {
   final Note note;
 
-  NoteDetail({this.note});
+  NoteDetail(this.note);
 
   @override
   Widget build(BuildContext context) {

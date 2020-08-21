@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -60,7 +62,7 @@ class NoteListState extends State<NoteList> {
                       color: Colors.red,
                     ),
                     onTap: () {
-                      showDeleteDialog();
+                      showDeleteDialog(this.noteList[position]);
                     },
                   )
                 ],
@@ -74,7 +76,7 @@ class NoteListState extends State<NoteList> {
         });
   }
 
-  void showDeleteDialog() {
+  void showDeleteDialog(note) {
 // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text("Cancel"),
@@ -85,6 +87,8 @@ class NoteListState extends State<NoteList> {
     Widget continueButton = FlatButton(
       child: Text("Yes"),
       onPressed: () {
+        dbHelper.deleteNote(note.id);
+        refreshNoteList();
         Navigator.pop(context);
       },
     );

@@ -20,7 +20,11 @@ class NoteDetail extends StatelessWidget {
   }
 
   Row titleRow() {
-    return Row();
+    return Row(
+      children: <Widget>[
+        Text(note.title),
+      ],
+    );
   }
 
   Row actionRow() {
@@ -70,6 +74,10 @@ class NoteDetail extends StatelessWidget {
   }
 
   Row descRow() {
-    return Row();
+    return Row(
+      children: <Widget>[
+        Text(note.description),
+      ],
+    );
   }
 }

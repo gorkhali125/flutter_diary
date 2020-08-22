@@ -24,7 +24,49 @@ class NoteDetail extends StatelessWidget {
   }
 
   Row actionRow() {
-    return Row();
+    return Row(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            GestureDetector(
+              child: Icon(
+                Icons.list,
+                color: Colors.green,
+              ),
+              onTap: () {
+                print("list tapped");
+              },
+            ),
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            GestureDetector(
+              child: Icon(
+                Icons.edit,
+                color: Colors.blue,
+              ),
+              onTap: () {
+                print("edit tapped");
+              },
+            ),
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            GestureDetector(
+              child: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onTap: () {
+                print("delete tapped");
+              },
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Row descRow() {

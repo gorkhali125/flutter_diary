@@ -13,15 +13,21 @@ class NoteDetail extends StatelessWidget {
       body: Container(
         margin: EdgeInsets.all(10.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('Title: ' + note.title, style: TextStyle(fontSize: 22)),
-            Text('Description: ' + note.description,
-                style: TextStyle(fontSize: 22)),
-            Text('Date: ' + note.date, style: TextStyle(fontSize: 22)),
-          ],
+          children: <Widget>[titleRow(), actionRow(), descRow()],
         ),
       ),
     ));
+  }
+
+  Row titleRow() {
+    return Row();
+  }
+
+  Row actionRow() {
+    return Row();
+  }
+
+  Row descRow() {
+    return Row();
   }
 }

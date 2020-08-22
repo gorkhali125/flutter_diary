@@ -22,7 +22,9 @@ class NoteDetail extends StatelessWidget {
   Row titleRow() {
     return Row(
       children: <Widget>[
-        Text(note.title),
+        Flexible(
+          child: Text(note.title),
+        )
       ],
     );
   }
@@ -76,7 +78,9 @@ class NoteDetail extends StatelessWidget {
   Row descRow() {
     return Row(
       children: <Widget>[
-        Text(note.description),
+        Flexible(
+          child: Text(note.description),
+        )
       ],
     );
   }

@@ -70,6 +70,7 @@ class NoteDetail extends StatelessWidget {
                 color: Colors.red,
               ),
               onTap: () {
+                showDeleteDialog(note, ctx);
               },
             ),
           ],

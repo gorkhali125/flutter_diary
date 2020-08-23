@@ -44,7 +44,7 @@ class NoteDetail extends StatelessWidget {
                 color: Colors.green,
               ),
               onTap: () {
-                print("list tapped");
+                Navigator.of(ctx).pushNamed(MyApp.routeName);
               },
             ),
           ],

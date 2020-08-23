@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_diary/main.dart';
 import 'package:flutter_diary/model/note.dart';
+import 'package:flutter_diary/db/db_helper.dart';
 
 class NoteDetail extends StatelessWidget {
   final Note note;
+  final DBHelper dbHelper = DBHelper();
 
   NoteDetail(this.note);
 
@@ -13,7 +17,7 @@ class NoteDetail extends StatelessWidget {
       body: Container(
         margin: EdgeInsets.all(10.0),
         child: Column(
-          children: <Widget>[titleRow(), actionRow(), descRow()],
+          children: <Widget>[titleRow(), actionRow(context), descRow()],
         ),
       ),
     ));
@@ -29,7 +33,7 @@ class NoteDetail extends StatelessWidget {
     );
   }
 
-  Row actionRow() {
+  Row actionRow(ctx) {
     return Row(
       children: <Widget>[
         Column(
@@ -66,7 +70,6 @@ class NoteDetail extends StatelessWidget {
                 color: Colors.red,
               ),
               onTap: () {
-                print("delete tapped");
               },
             ),
           ],
@@ -82,6 +85,39 @@ class NoteDetail extends StatelessWidget {
           child: Text(note.description),
         )
       ],
+    );
+  }
+
+  void showDeleteDialog(note, ctx) {
+// set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.pop(ctx);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Yes"),
+      onPressed: () {
+        dbHelper.deleteNote(note.id);
+        Navigator.of(ctx).pushNamed(MyApp.routeName);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Delete Note"),
+      content: Text("Are you sure you want to delete this note?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: ctx,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

@@ -85,7 +85,7 @@ class NoteListState extends State<NoteList> {
         Navigator.pop(context);
       },
     );
-    Widget continueButton = FlatButton(
+    Widget submitButton = FlatButton(
       child: Text("Yes"),
       onPressed: () {
         dbHelper.deleteNote(note.id);
@@ -99,7 +99,7 @@ class NoteListState extends State<NoteList> {
       content: Text("Are you sure you want to delete this note?"),
       actions: [
         cancelButton,
-        continueButton,
+        submitButton,
       ],
     );
     // show the dialog

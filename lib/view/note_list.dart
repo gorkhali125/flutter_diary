@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter_diary/model/note.dart';
 import 'package:flutter_diary/db/db_helper.dart';
 import 'package:flutter_diary/view/note_detail.dart';
+import 'package:flutter_diary/utils/helpers.dart';
 
 class NoteList extends StatefulWidget {
   NoteList({Key key}) : super(key: key);
@@ -61,7 +62,7 @@ class NoteListState extends State<NoteList> {
                       color: Colors.red,
                     ),
                     onTap: () {
-                      showDeleteDialog(this.noteList[position]);
+                      showDeleteDialog(this.noteList[position], context);
                     },
                   )
                 ],
@@ -75,40 +76,6 @@ class NoteListState extends State<NoteList> {
             //...
           );
         });
-  }
-
-  void showDeleteDialog(note) {
-// set up the buttons
-    Widget cancelButton = FlatButton(
-      child: Text("Cancel"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-    Widget submitButton = FlatButton(
-      child: Text("Yes"),
-      onPressed: () {
-        dbHelper.deleteNote(note.id);
-        refreshNoteList();
-        Navigator.pop(context);
-      },
-    );
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Delete Note"),
-      content: Text("Are you sure you want to delete this note?"),
-      actions: [
-        cancelButton,
-        submitButton,
-      ],
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 
   void refreshNoteList() {

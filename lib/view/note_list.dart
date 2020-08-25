@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter_diary/model/note.dart';
 import 'package:flutter_diary/db/db_helper.dart';
 import 'package:flutter_diary/view/note_detail.dart';
-import "package:flutter_diary/form/add_text_note.dart";
+import 'package:flutter_diary/form/edit_text_note.dart';
 import 'package:flutter_diary/utils/helpers.dart';
 
 class NoteList extends StatefulWidget {
@@ -54,14 +54,10 @@ class NoteListState extends State<NoteList> {
                       color: Colors.blue,
                     ),
                     onTap: () {
-                      String type = this.noteList[position].type;
-                      String routeName = (type == 'text')
-                          ? AddTextNote.routeName
-                          : (type == 'image'
-                              ? AddTextNote.routeName
-                              : AddTextNote.routeName);
-                      Navigator.of(context)
-                          .pushNamed(routeName, arguments: note);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return EditTextNote(this.noteList[position]);
+                      }));
                     },
                   ),
                   GestureDetector(

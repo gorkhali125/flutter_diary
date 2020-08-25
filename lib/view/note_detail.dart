@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_diary/main.dart';
 import 'package:flutter_diary/model/note.dart';
-import "package:flutter_diary/form/add_text_note.dart";
+import 'package:flutter_diary/form/edit_text_note.dart';
 import 'package:flutter_diary/db/db_helper.dart';
 import 'package:flutter_diary/utils/helpers.dart';
 
@@ -59,14 +59,9 @@ class NoteDetail extends StatelessWidget {
                 color: Colors.blue,
               ),
               onTap: () {
-                String type = note.type;
-                String routeName = (type == 'text')
-                    ? AddTextNote.routeName
-                    : (type == 'image'
-                    ? AddTextNote.routeName
-                    : AddTextNote.routeName);
-                Navigator.of(ctx)
-                    .pushNamed(routeName, arguments: note);
+                Navigator.push(ctx, MaterialPageRoute(builder: (context) {
+                  return EditTextNote(note);
+                }));
               },
             ),
           ],
@@ -97,5 +92,4 @@ class NoteDetail extends StatelessWidget {
       ],
     );
   }
-
 }

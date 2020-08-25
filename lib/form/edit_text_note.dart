@@ -113,10 +113,10 @@ class _EditTextNoteState extends State<EditTextNote> {
     note.description = note.description ?? 'N/A';
     note.date = DateFormat.yMMMd().add_jms().format(DateTime.now());
     Navigator.of(context).pushNamed(MyApp.routeName);
-    int saved = await dbHelper.addNote(widget.note);
+    int saved = await dbHelper.editNote(note);
 
     if (saved != 0) {
-      _showAlertDialog('Success', 'Your note is saved successfully!!');
+      _showAlertDialog('Success', 'Your note is updated successfully!!');
     } else {
       _showAlertDialog('Error', 'An error occurred while saving note.');
     }

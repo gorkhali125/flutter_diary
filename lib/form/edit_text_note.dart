@@ -14,10 +14,10 @@ class EditTextNote extends StatefulWidget {
 
 class _EditTextNoteState extends State<EditTextNote> {
   final _editTextNoteFormKey = GlobalKey<FormState>();
-  Note note =
-      Note('', DateFormat.yMMMd().add_jms().format(DateTime.now()), 'text');
-  DBHelper dbHelper = DBHelper();
 
+  Note note;
+
+  DBHelper dbHelper = DBHelper();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
@@ -30,6 +30,7 @@ class _EditTextNoteState extends State<EditTextNote> {
 
   @override
   Widget build(BuildContext context) {
+    this.note = widget.note;
     return Scaffold(
       appBar: new AppBar(title: new Text('Add Text Note')),
       body: SafeArea(
@@ -60,7 +61,7 @@ class _EditTextNoteState extends State<EditTextNote> {
                           decoration: InputDecoration(
                             hintText: 'What do you want to write about?',
                           ),
-                          controller: titleController,
+                          controller: titleController..text = note.title,
                           validator: (String value) {
                             if (value.isEmpty) {
                               return 'You might want to write something.';
@@ -76,7 +77,7 @@ class _EditTextNoteState extends State<EditTextNote> {
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(hintText: 'Tell me more.'),
-                        controller: descriptionController,
+                        controller: descriptionController..text = note.description,
                         onChanged: (String value) {
                           note.description =
                               descriptionController.text.trim().isNotEmpty
@@ -110,8 +111,9 @@ class _EditTextNoteState extends State<EditTextNote> {
 
   void _saveTextNote() async {
     note.description = note.description ?? 'N/A';
+    note.date = DateFormat.yMMMd().add_jms().format(DateTime.now());
     Navigator.of(context).pushNamed(MyApp.routeName);
-    int saved = await dbHelper.addNote(note);
+    int saved = await dbHelper.addNote(widget.note);
 
     if (saved != 0) {
       _showAlertDialog('Success', 'Your note is saved successfully!!');

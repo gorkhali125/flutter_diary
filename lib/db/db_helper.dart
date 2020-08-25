@@ -55,6 +55,13 @@ class DBHelper {
     return result;
   }
 
+  //Edit operation
+  Future<int> editNote(Note note) async {
+    Database db = await this.database;
+    var result = db.update(table, note.toMap(), where: '$id = ?', whereArgs: [note.id]);
+    return result;
+  }
+
   //Get all Note with specified type.
   Future<List<Note>> getAllNote(String typ) async {
     Database db = await this.database;

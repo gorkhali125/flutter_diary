@@ -19,7 +19,11 @@ class NoteDetail extends StatelessWidget {
       body: Container(
         margin: EdgeInsets.all(32),
         child: Column(
-          children: <Widget>[titleContainer(), actionRow(context), descRow()],
+          children: <Widget>[
+            titleContainer(),
+            actionRow(context),
+            descContainer()
+          ],
         ),
       ),
     ));
@@ -66,7 +70,10 @@ class NoteDetail extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               child: IconButton(
-                icon: Icon(Icons.list, color: primaryColor,),
+                icon: Icon(
+                  Icons.list,
+                  color: primaryColor,
+                ),
               ),
               onTap: () {
                 Navigator.of(ctx).pushNamed(MyApp.routeName);
@@ -104,13 +111,25 @@ class NoteDetail extends StatelessWidget {
     );
   }
 
-  Row descRow() {
-    return Row(
-      children: <Widget>[
-        Flexible(
-          child: Text(note.description),
-        )
-      ],
+  Container descContainer() {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    note.description,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

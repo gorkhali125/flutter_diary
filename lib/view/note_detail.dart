@@ -25,7 +25,7 @@ class NoteDetail extends StatelessWidget {
     ));
   }
 
-  Container titleContainer() {1
+  Container titleContainer() {
     return Container(
       child: Row(
         children: [
@@ -57,13 +57,16 @@ class NoteDetail extends StatelessWidget {
   }
 
   Row actionRow(ctx) {
+    Color primaryColor = Theme.of(ctx).primaryColor;
     return Row(
       children: <Widget>[
         Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
               child: IconButton(
-                icon: Icon(Icons.list, color: Colors.green),
+                icon: Icon(Icons.list, color: primaryColor,),
               ),
               onTap: () {
                 Navigator.of(ctx).pushNamed(MyApp.routeName);
@@ -75,7 +78,7 @@ class NoteDetail extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               child: IconButton(
-                icon: Icon(Icons.edit, color: Colors.blue),
+                icon: Icon(Icons.edit, color: primaryColor),
               ),
               onTap: () {
                 Navigator.push(ctx, MaterialPageRoute(builder: (context) {
@@ -89,7 +92,7 @@ class NoteDetail extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               child: IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
+                icon: Icon(Icons.delete, color: primaryColor),
               ),
               onTap: () {
                 showDeleteDialog(note, ctx);

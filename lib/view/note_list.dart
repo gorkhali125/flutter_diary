@@ -26,6 +26,7 @@ class NoteListState extends State<NoteList> {
     }
 
     TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    Color primaryColor = Theme.of(context).primaryColor;
 
     return ListView.builder(
         itemCount: count,
@@ -49,7 +50,7 @@ class NoteListState extends State<NoteList> {
                 children: <Widget>[
                   GestureDetector(
                     child: IconButton(
-                      icon: Icon(Icons.edit, color: Colors.blue),
+                      icon: Icon(Icons.edit, color: primaryColor),
                     ),
                     onTap: () {
                       Navigator.push(context,
@@ -60,7 +61,7 @@ class NoteListState extends State<NoteList> {
                   ),
                   GestureDetector(
                     child: IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
+                      icon: Icon(Icons.delete, color: primaryColor),
                     ),
                     onTap: () {
                       showDeleteDialog(this.noteList[position], context);

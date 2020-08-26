@@ -46,12 +46,10 @@ class NoteListState extends State<NoteList> {
               ),
               subtitle: Text(this.noteList[position].date),
               trailing: Wrap(
-                spacing: 10,
                 children: <Widget>[
                   GestureDetector(
-                    child: Icon(
-                      Icons.edit,
-                      color: Colors.blue,
+                    child: IconButton(
+                      icon: Icon(Icons.edit, color: Colors.blue),
                     ),
                     onTap: () {
                       Navigator.push(context,
@@ -61,9 +59,8 @@ class NoteListState extends State<NoteList> {
                     },
                   ),
                   GestureDetector(
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.red,
+                    child: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
                     ),
                     onTap: () {
                       showDeleteDialog(this.noteList[position], context);

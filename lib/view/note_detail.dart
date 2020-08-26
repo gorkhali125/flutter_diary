@@ -17,21 +17,42 @@ class NoteDetail extends StatelessWidget {
     return (Scaffold(
       appBar: AppBar(title: Text('Note Details')),
       body: Container(
-        margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.all(32),
         child: Column(
-          children: <Widget>[titleRow(), actionRow(context), descRow()],
+          children: <Widget>[titleContainer(), actionRow(context), descRow()],
         ),
       ),
     ));
   }
 
-  Row titleRow() {
-    return Row(
-      children: <Widget>[
-        Flexible(
-          child: Text(note.title),
-        )
-      ],
+  Container titleContainer() {1
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    note.title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  note.date,
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
